@@ -1,33 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from '@apollo/client';
-import {setContext} from '@apollo/link-context';
+import {ApolloProvider} from '@apollo/client';
 import Login from './components/Login';
+import * as apollo from './constants/apollo';
 import * as serviceWorker from './serviceWorker';
 import './stylesheets/index.css';
 
-const httpLink = createHttpLink({
-  uri: 'http://localhost:8080/query',
-});
-
-const authLink = setContext((_, {headers}) => {
-  const token = localStorage.getItem("token")
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
-  }
-})
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-  credentials: 'include'
-})
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    <ApolloProvider client={apollo.client}>
       <Login />
     </ApolloProvider>
   </React.StrictMode>,
