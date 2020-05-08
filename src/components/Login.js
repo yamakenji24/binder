@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-//import {useMutation} from '@apollo/react-hooks';
 import {useMutation} from '@apollo/client';
 import * as UserMutation from '../queries';
 import '../stylesheets/login.css';
@@ -9,17 +8,28 @@ function Login() {
     username: '',
     password: ''
   });
-  const [login, {data, error: mutationError}] = useMutation(UserMutation.LOGIN)
+  const [login] = useMutation(
+    UserMutation.LOGIN, {
+      onCompleted({login}) {
+        console.log(login)
+        // localStorage.setItem('token', login as string)
+      }
+    }
+  )
   
-  
-
   const handleChange = event => {
     setState({...state, [event.target.name]: event.target.value });
   }
   
   const handleClick = () => {
-    login({variables: {username: state.username, password: state.password}})
-    console.log(data)
+    login({
+      variables: {
+        loginInput: {
+          username: state.username,
+          password: state.password
+        }
+      }
+    })
   }
   
   return (
