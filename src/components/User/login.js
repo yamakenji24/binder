@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useMutation} from '@apollo/client';
 import {useHistory} from 'react-router-dom';
-
+import Navbar from 'react-bootstrap/Navbar';
 import * as UserMutation from '../../queries';
 import '../../stylesheets/login.css';
 
@@ -40,11 +40,17 @@ export default function Login() {
   }
   
   return (
-    <div className="login-box">
-      <h1>Login</h1>
-      <input type="text" name="username" value={state.username} placeholder="Username" onChange={handleChange} />
-      <input type="password" name="password" value={state.password} placeholder="Password" onChange={handleChange} />
-      <button onClick={handleClick}>ログイン</button>
+    <div>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="/">Binder</Navbar.Brand>
+      </Navbar>
+    
+      <div className='login-box'>
+        <h1>Login</h1>
+        <input type="text" name="username" value={state.username} placeholder="Username" onChange={handleChange} />
+        <input type="password" name="password" value={state.password} placeholder="Password" onChange={handleChange} />
+        <button onClick={handleClick}>ログイン</button>
+      </div>
     </div>
   )
 }
