@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Login from './components/User/login';
 import TopPage from './components/TopPage/';
 import PostDoc from './components/PostDoc';
+import MyPage from './components/MyPage';
 import * as apollo from './constants/apollo';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,6 +21,7 @@ ReactDOM.render(
           <Route exact path='/' component={Login} />
           <Route exact path='/toppage' component={TopPage}/>
           <Route exact path='/toppage/postDoc' component={PostDoc}/>
+          <Route exact path='/toppage/myPage' component={MyPage}/>
         </Switch>
       </Router>
     </ApolloProvider>
