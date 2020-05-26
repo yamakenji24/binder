@@ -3,10 +3,12 @@ import {useMutation} from '@apollo/client';
 import {useHistory} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import * as UserMutation from '../../queries';
+import {useToasts} from 'react-toast-notifications';
 import '../../stylesheets/login.css';
 
 export default function Login() {
   const history = useHistory();
+  const {addToast} = useToasts();
   const [state, setState] = useState({
     username: '',
     password: ''
@@ -20,6 +22,7 @@ export default function Login() {
       },
       onError(error) {
         console.log(error)
+        addToast('failed login', {appearance: 'error'} )
       }
     }
   );

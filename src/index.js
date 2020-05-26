@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {ApolloProvider} from '@apollo/client';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
+import {ToastProvider} from 'react-toast-notifications';
 import Login from './components/User/login';
 import TopPage from './components/TopPage/';
 import PostDoc from './components/PostDoc';
@@ -18,10 +18,16 @@ ReactDOM.render(
     <ApolloProvider client={apollo.client}>
       <Router>
         <Switch>
-          <Route exact path='/' component={Login} />
-          <Route exact path='/toppage' component={TopPage}/>
-          <Route exact path='/toppage/postDoc' component={PostDoc}/>
-          <Route exact path='/toppage/myPage' component={MyPage}/>
+          <ToastProvider
+            autoDismiss
+            autoDismissTimeout={4000}
+            placement='top-center'
+          >
+            <Route exact path='/' component={Login} />
+            <Route exact path='/toppage' component={TopPage}/>
+            <Route exact path='/toppage/postDoc' component={PostDoc}/>
+            <Route exact path='/toppage/myPage' component={MyPage}/>
+          </ToastProvider>
         </Switch>
       </Router>
     </ApolloProvider>
