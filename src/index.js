@@ -1,12 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import {ApolloProvider} from '@apollo/client';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {ToastProvider} from 'react-toast-notifications';
+import Login from './components/User/login';
+import TopPage from './components/TopPage/';
+import PostDoc from './components/PostDoc';
+import MyPage from './components/MyPage';
+import * as apollo from './constants/apollo';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './stylesheets/index.css';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={apollo.client}>
+      <Router>
+        <Switch>
+          <ToastProvider
+            autoDismiss
+            autoDismissTimeout={4000}
+            placement='top-center'
+          >
+            <Route exact path='/' component={Login} />
+            <Route exact path='/toppage' component={TopPage}/>
+            <Route exact path='/toppage/postDoc' component={PostDoc}/>
+            <Route exact path='/toppage/myPage' component={MyPage}/>
+          </ToastProvider>
+        </Switch>
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
