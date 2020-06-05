@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {useMutation} from '@apollo/client';
 import {useHistory} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
 import * as UserMutation from '../../queries';
 import {useToasts} from 'react-toast-notifications';
+import axios from 'axios';
 import '../../stylesheets/login.css';
 
 export default function Login() {
@@ -13,33 +13,22 @@ export default function Login() {
     username: '',
     password: ''
   });
-  const [login, {loading, error}] = useMutation(
-    UserMutation.LOGIN, {
-      onCompleted({login}) {
-        console.log(login, error)
-        // localStorage.setItem('token', login as string)
-        history.push('/toppage')
-      },
-      onError(error) {
-        console.log(error)
-        addToast('failed login', {appearance: 'error'} )
-      }
-    }
-  );
   
   const handleChange = event => {
     setState({...state, [event.target.name]: event.target.value });
   }
   
-  const handleClick = () => {
-    login({
-      variables: {
-        loginInput: {
-          username: state.username,
-          password: state.password
-        }
-      }
-    })
+  const handleClick = async() => {
+    const result =await axios.post("http://localhost:8080/login", {
+      "username": state.username,
+      "password": state.password
+    }).then(res => res.data)
+      .catch(e => console.log(e))
+    if (!result) {return }
+    if (result.status === 'success') {
+      localStorage.setItem("token", result.token)
+      history.push('/toppage')
+    }
   }
   
   return (
@@ -47,7 +36,6 @@ export default function Login() {
       <Navbar bg="dark" variant="dark">
         <Navbar.Brand href="/">Binder</Navbar.Brand>
       </Navbar>
-    
       <div className='login-box'>
         <h1>Login</h1>
         <input type="text" name="username" value={state.username} placeholder="Username" onChange={handleChange} />
