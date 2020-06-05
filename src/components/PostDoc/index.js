@@ -18,7 +18,7 @@ export default function PostDoc() {
   
   const handleChange = () => {
     const file = fileInput.current.files[0]
-       
+    
     if (file) {
       const reader = new FileReader()
       reader.readAsDataURL(file)

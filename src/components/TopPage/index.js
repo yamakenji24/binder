@@ -5,8 +5,7 @@ import NaviBar from './NaviBar';
 import Doc from './Doc';
 import News from './News';
 
-export default function TopPage() {
-  
+export default function TopPage() {  
   return (
     <div>
       <NaviBar />
