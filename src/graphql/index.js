@@ -6,4 +6,8 @@ export const USER = gql`query User($username: String!){
     username
     email
   }
-}`
+}`;
+
+export const CREATEDOCUMENT = gql`mutation CreateDocument($documentInput: documentInput!){
+  createDocument(input: $documentInput)
+}`;
