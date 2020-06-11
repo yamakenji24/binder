@@ -1,7 +1,7 @@
-import {gql} from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const USER = gql`
-  query User($username: String!){
+  query User($username: String!) {
     user(username: $username) {
       id
       username
@@ -11,7 +11,7 @@ export const USER = gql`
 `;
 
 export const CREATEDOCUMENT = gql`
-  mutation CreateDocument($documentInput: DocumentInput!){
+  mutation CreateDocument($documentInput: DocumentInput!) {
     createDocument(input: $documentInput) {
       title
       description
