@@ -1,7 +1,7 @@
-import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import Logout from '../User/logout';
+import React from "react";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import Logout from "../User/logout";
 
 export default function NaviBar() {
   return (
@@ -16,5 +16,5 @@ export default function NaviBar() {
         <Logout />
       </Nav>
     </Navbar>
-  )
+  );
 }
