@@ -1,15 +1,34 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useLazyQuery } from '@apollo/client';
 import {Tab, Tabs, TabList, TabPanel} from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import NaviBar from './NaviBar';
 import Doc from './Doc';
 import News from './News';
+import * as Graphql from '../../graphql';
 
-export default function TopPage() {  
+
+export default function TopPage() {
+  
+  const [getUser, {loading, data}] = useLazyQuery(Graphql.USER, {
+    variables: {"username": 'yamakenji24'},
+    onCompleted({user}) {
+      console.log(user)
+    },
+    onError({error}) {
+      console.log("error", error)
+    }
+  })
+
+  const checkButton = () => {
+    getUser()
+  }
+  
   return (
     <div>
       <NaviBar />
       <h1>SLP のいろいろを管理できたらいいな</h1>
+      <button onClick={checkButton}>Testing</button>
       <Tabs>
         <TabList>
           <Tab>News</Tab>

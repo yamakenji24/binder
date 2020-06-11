@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import Navbar from 'react-bootstrap/Navbar';
-import * as UserMutation from '../../queries';
 import {useToasts} from 'react-toast-notifications';
 import axios from 'axios';
 import '../../stylesheets/login.css';
