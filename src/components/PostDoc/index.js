@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import { Document, Page, pdfjs } from "react-pdf";
 import { useMutation } from "@apollo/client";
 import NaviBar from "../TopPage/NaviBar";
+import { useToasts } from "react-toast-notifications";
 import * as Graphql from "../../graphql";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -21,11 +22,14 @@ export default function PostDoc() {
     description: "",
   });
   const fileInput = useRef();
+  const { addToast } = useToasts();
   const [createDocument] = useMutation(Graphql.CREATEDOCUMENT, {
     onCompleted({ doc }) {
+      addToast("success creating", {appearance: "success"});
       console.log(doc);
     },
     onError({ error }) {
+      addToast(error,{appearance: "error"});
       console.log(error);
     },
   });
@@ -47,7 +51,7 @@ export default function PostDoc() {
     // DB に登録したい
     const tag = state.tagInput.split(" ");
     if (!state.titleInput || !tag || !base64) {
-      console.log("failed");
+      addToast("Form is incomplete", {appearance: "error"})
     } else {
       console.log(state.titleInput, state.description, base64);
       createDocument({
