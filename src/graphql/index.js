@@ -32,6 +32,7 @@ export const GET_DOCUMENTS = gql`
           file
         }
       }
+      total
     }
   }
 `;
