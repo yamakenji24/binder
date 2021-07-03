@@ -19,3 +19,20 @@ export const CREATEDOCUMENT = gql`
     }
   }
 `;
+
+export const GET_DOCUMENTS = gql`
+  query GetDocuments($paginationInput: PaginationInput!) {
+    docs(page: $paginationInput) {
+      edges {
+        cursor
+        node {
+          id
+          title
+          description
+          file
+        }
+      }
+      total
+    }
+  }
+`;
